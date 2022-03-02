@@ -2,7 +2,7 @@ import sys
 import json
 
 
-async def get_request():
+def read_request():
     print("Hello!\n"
           "I will return the first 10 search results on aliexpress.com\n"
           "I can process requests in json format, for example:\n"
