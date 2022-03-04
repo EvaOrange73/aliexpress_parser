@@ -1,6 +1,8 @@
 import sys
 import json
 
+from client.send_request import send_request
+
 
 def read_request():
     print("Hello!\n"
@@ -34,6 +36,9 @@ def read_request():
                 request = ""
                 continue
 
-            # TODO: send request
+            send_request(json.dumps(request))
 
             request = ""
+
+
+read_request()
