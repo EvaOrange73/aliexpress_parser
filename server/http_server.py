@@ -2,19 +2,23 @@ import json
 from http.server import BaseHTTPRequestHandler
 from http.server import HTTPServer
 
-import simplejson
+from server.parser import parser
 
 
 class HttpHandler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         self.send_response(200)
+
         self.send_header('Content-Type', 'application/json')
         self.end_headers()
+
         content_len = int(self.headers.get('Content-Length'))
         post_body = self.rfile.read(content_len)
-        print(post_body.decode('utf8'))
-        answer = str(json.loads(post_body.decode('utf8')).get("searchWord"))
+
+        search_word = str(json.loads(post_body.decode('utf8')).get("searchWord"))
+        answer = parser(search_word)
+
         self.wfile.write(answer.encode(encoding='utf_8'))
 
 
