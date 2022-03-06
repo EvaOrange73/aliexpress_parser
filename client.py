@@ -1,10 +1,11 @@
+import pprint
 import sys
 import json
 
-from client.send_request import send_request
+import requests
 
 
-def read_request():
+def client():
     print("Hello!\n"
           "I will return the first 10 search results on aliexpress.com\n"
           "I can process requests in json format, for example:\n"
@@ -36,9 +37,11 @@ def read_request():
                 request = ""
                 continue
 
-            send_request(json.dumps(request))
+            answer = requests.post('http://localhost:8000/', data=json.dumps(request))
+            answer = json.loads(answer.text)
+            pprint.pprint(answer, indent=4, sort_dicts=False)
 
             request = ""
 
 
-read_request()
+client()
